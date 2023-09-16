@@ -1,31 +1,46 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
-import FetchData from '../api/FetchData'
-
+import React, { useEffect, useState } from 'react';
+import FetchData from '../api/FetchData';
 
 const QuizData = (props) => {
-    const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState({});
 
-    useEffect(() => {
-        const getData = async () => {
-            const datas = await FetchData(props.amount, props.category, props.type, props.difficulty);
-            setData(datas.results);
-          };
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const fetchedData = await FetchData(props.amount, props.category, props.type, props.difficulty);
+        setData(fetchedData.results);
 
-          getData();
-      }, [props.amount, props.category, props.type, props.difficulty]);
-    
+        // Set the currentQuestion state immediately after setting the data state
+        setCurrentQuestion(fetchedData.results[0]);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    getData();
+  }, [props.amount, props.category, props.type, props.difficulty]);
+
+  const changeQuestion = () => {
+    if (questionIndex + 1 < data.length) {
+      setQuestionIndex(questionIndex + 1);
+      setCurrentQuestion(data[questionIndex + 1]);
+    }
+  };
+
   return (
     <div className='question container'>
-      {data.map((data, key) => (
-        <div key={key}>
-            <h2>{data.question}</h2>
-            <button>True</button>
-            <button>False</button>
-            </div>
-      ))}
-  </div>
-  )
-}
+      {currentQuestion !== undefined ? (
+        <div>
+          <h1>{currentQuestion.question}</h1>
+          <button onClick={changeQuestion}>Next Question</button>
+        </div>
+      ) : (
+        <h1>Loading...</h1>
+      )}
+    </div>
+  );
+};
 
 export default QuizData;
