@@ -1,0 +1,19 @@
+:root{
+    --background: rgb(255, 255, 255);
+}
+
+.question-container{
+    width: 900px;
+    height: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--background);
+    border-radius: 5%;
+}
+
+.question{
+    width: 700px;
+    height: 200px;
+}

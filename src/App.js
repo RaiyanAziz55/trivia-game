@@ -1,11 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
-import QuizData from './components/quizData';
+import QuizData from './components/QuizData';
 
 function App() {
   return (
-    <div>
-      <QuizData amount="3" category="10" type="boolean" difficulty="easy"/>
+    <div className='main'>
+      <QuizData amount="3" category="10" type="multiple" difficulty="easy" />
     </div>
   );
 }

@@ -4,3 +4,11 @@ opacity: 1;
 background-image: radial-gradient(#0004ff 1.2000000000000002px, #dff2ff 1.2000000000000002px);
 background-size: 24px 24px;
 }
+
+.main{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -13,7 +13,7 @@
   
       // Parse the response as needed (assuming it's JSON data)
       const data = await response.json();
-      return data;
+      return data.results;
     } catch (error) {
       // Handle any errors that occurred during the fetch
       console.error('There was a problem with the fetch operation:', error);
