@@ -52,15 +52,17 @@ const QuizData = (props) => {
     }
   };
   const formatQuestion = (sum) => {
+    console.log(sum);
     var q = JSON.stringify(currentQuestionSet.question);
     q = q.replaceAll("&#039;", "\'");
     q = q.replaceAll("&quot;", "\"");
-    return JSON.parse(q);
+    q = q.substring(1, q.length-1)
+    return q;
   }
 
   return (
     <div className='question-container'>
-          <h1 className='question'>{currentQuestionSet.question}</h1>
+          <h1 className='question'>{currentQuestionSet.question === undefined ? "loading": formatQuestion(currentQuestionSet.question) }</h1>
 
        {/*   <Boolean next={changeQuestion} correct={currentQuestion.correct_answer}/> */}
 

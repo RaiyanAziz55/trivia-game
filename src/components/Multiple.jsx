@@ -9,11 +9,14 @@ const Multiple = (props) => {
         }
         props.next();
     }
-    
-    for (let i = 0; i < props.choices.length; i++) {
-        props.choices[i] = props.choices[i].replaceAll("&#039;", "\'");
-        props.choices[i] = props.choices[i].replaceAll("&quot;", "\"");
-      }
+    const formatChoices = () => {
+        for (let i = 0; i < props.choices.length; i++) {
+            props.choices[i] = props.choices[i].replaceAll("&#039;", "\'");
+            props.choices[i] = props.choices[i].replaceAll("&quot;", "\"");
+          }
+    }
+
+    formatChoices();
   return (
     <ul>
             {props.choices.map((option, index) => (
