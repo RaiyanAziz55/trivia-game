@@ -1,8 +1,9 @@
 body{
   background-color: #dff2ff;
 opacity: 1;
-background-image: radial-gradient(#0004ff 1.2000000000000002px, #dff2ff 1.2000000000000002px);
-background-size: 24px 24px;
+background-image: url(./mockups/7290753.jpg);
+background-repeat: no-repeat;
+background-size: 100%;
 }
 
 .main{
