@@ -4,9 +4,10 @@ interface Props {
   choices: string[];
   correct: string;
   next: () => void;
+  lives: () => void;
 }
 
-const Multiple: FC<Props> = ({ choices, correct, next }) => {
+const Multiple: FC<Props> = ({ choices, correct, next, lives }) => {
   const [formattedChoices, setFormattedChoices] = useState<string[]>([]);
 
   useEffect(() => {
@@ -28,6 +29,7 @@ const Multiple: FC<Props> = ({ choices, correct, next }) => {
       console.log("correct");
     } else {
       console.log("incorrect");
+     lives();
     }
     next();
   }

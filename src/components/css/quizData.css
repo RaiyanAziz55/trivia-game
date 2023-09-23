@@ -17,3 +17,32 @@
     width: 700px;
     height: 200px;
 }
+
+.true-or-false{
+    width: inherit;
+    height:250px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.true-or-false ul li{
+    border: 0.25rem solid;
+    height: 7rem;
+    width: 75%;
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1rem;
+}
+
+.true-or-false ul{
+    height: 3rem;
+    width: inherit;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
+    
+}

@@ -1,21 +1,29 @@
-async function FetchData(amount: number, category: string, type: string, difficulty: string) {
+async function FetchData(
+  amount: number,
+  category: string | undefined,
+  type: string | undefined,
+  difficulty: string | undefined
+): Promise<any> {
   const url = `https://opentdb.com/api.php?amount=${amount}&difficulty=${difficulty}&type=${type}&category=${category}`;
-
   try {
     const response = await fetch(url);
-
-    // Check if the response status is OK (status code 200)
-    if (!response.ok) {
+    if (response.ok) {
+      const data = await response.json();
+      if (data.response_code === 0) {
+        return data;
+      } else if (data.response_code === 1) {
+        // Return the result of the recursive call
+        return await FetchData(amount - 1, category, type, difficulty);
+      } else {
+        throw new Error('Something happened!');
+      }
+    } else {
       throw new Error('Network response was not ok');
     }
-
-    // Parse the response as needed (assuming it's JSON data)
-    const data = await response.json();
-    return data.results;
   } catch (error) {
-    // Handle any errors that occurred during the fetch
-    console.error('There was a problem with the fetch operation:', error);
-    throw error; // Optionally, rethrow the error for the caller to handle
+    // Handle any errors that occur during the fetch or processing
+    console.error('An error occurred:', error);
+    throw error; // Rethrow the error to indicate a failure
   }
 }
 
