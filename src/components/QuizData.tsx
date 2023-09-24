@@ -1,9 +1,9 @@
 import React, { useEffect, useState, FC, MouseEvent } from 'react';
 import FetchData from '../api/FetchData';
 import Multiple from './Multiple';
-import './css/quizData.css';
+import "../App.css"
 
-interface QuizDataProps {
+interface QuizDataProps {  //Framing out the prop structure
   amount: number;
   category: string;
   type: string;
@@ -20,17 +20,18 @@ const QuizData: FC<QuizDataProps> = (props) => {
   const [currentQuestionSet, setCurrentQuestionSet] = useState<any>({});
   const [choices, setChoices] = useState<string[]>([]);
   const [doneQuiz, setDoneQuiz] = useState<boolean>(false);
-  const [lives, setLives] = useState<number>(1);
+  const [lives, setLives] = useState<number>(2);
   const [fail, setFail] = useState<boolean>(false);
+  const [score, setScore] = useState<number>(0);
 
-  const setInitialValues = (fetchData: any) => {
+  const setInitialValues = (fetchData: any) => { // Sets initial values by using setters and parsing them
     setData(fetchData);
     setCurrentQuestionSet(fetchData[0]);
     const incorrectAnswers = JSON.parse(JSON.stringify(fetchData[0].incorrect_answers));
     setChoices([fetchData[0].correct_answer.replaceAll('"', ''), ...incorrectAnswers]);
   }
 
-  useEffect(() => {
+  useEffect(() => { // Use effect that is reliant on the 4 main user inputs and fetches all the data
     const getData = async ():Promise<void> => {
       try {
         const fetchedData = await FetchData(amount, category, type, difficulty);
@@ -50,23 +51,19 @@ const QuizData: FC<QuizDataProps> = (props) => {
   }
 
   const changeQuestion = ():void => {
-    if (questionIndex + 1 < data.length && lives > 0) {
+    if (questionIndex + 1 < data.length && lives > -1) {
       setQuestionIndex(questionIndex + 1);
       setCurrentQuestionSet(data[questionIndex + 1]);
       updateChoices(questionIndex + 1);
     }
     else{
-      if (lives === 0){
-        setFail(true);
-      }
-      else{
+      if (lives > -1){
         setDoneQuiz(true);
       }
-     
     }
   };
 
-  const formatQuestion = (): string => {
+  const formatQuestion = (): string => { // Formats question by replacing unwanted characters
     if (!currentQuestionSet.question) {
       return 'Loading...';
     }
@@ -79,29 +76,35 @@ const QuizData: FC<QuizDataProps> = (props) => {
   }
 
   const handleLives = (): void => {
-    setLives(lives-1);
+    if (lives === 0){
+      setFail(true);
+    }
+    else{
+      setLives(lives-1);
+    }
+    
   }
 
   return (
 
     <div className='container'>
       <div className='info'>
-        <h3>Info</h3>
-        <h4>Question {questionIndex} out of {data.length}</h4>
+        <h4>Question {questionIndex} out of {data.length}</h4> {/* This will show miscellaneous information*/}
         <h4>Lives: {lives} left</h4>
         <h4>Category: {currentQuestionSet.category}</h4>
       </div>
-  {doneQuiz ? (
+  {doneQuiz ? ( // checks if the user is done the quiz
     <>
-    <div className='congrat-display'>
-      <h2>Congratulations! You won </h2>
+    <div className='congrat-display load-in'>
+      <h2>Congratulations! You beat the quiz! </h2>
+      <h4>Score: {Math.round((score/data.length)*100)} %</h4>
       </div>
       <button onClick={handleHome} className="home-button">Home</button>
     </>
-  ) : fail ? (
+  ) : fail ? ( // if they are not done, did the user fail, if not, then move onto the next question
     <>
-    <div className='fail-display'>
-      <h2>you Failed</h2>
+    <div className='fail-display load-in'>
+      <h2>Game Over! You lost all your lives!</h2>
       </div>
       <button onClick={handleHome} className='home-button'>Home</button>
     </>
@@ -110,8 +113,8 @@ const QuizData: FC<QuizDataProps> = (props) => {
     <div className='question'>
       <h1 >{formatQuestion()}</h1>
       </div>
-  
-      <Multiple choices={choices} next={changeQuestion} correct={currentQuestionSet.correct_answer} lives={handleLives} />
+    {/* Component to show the choices*/}
+      <Multiple choices={choices} next={changeQuestion} correct={currentQuestionSet.correct_answer} lives={handleLives} setScore={setScore} score={score}/>
     </>
   )}
 </div>
