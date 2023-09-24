@@ -59,6 +59,7 @@ const QuizData: FC<QuizDataProps> = (props) => {
     else{
       if (lives > -1){
         setDoneQuiz(true);
+        setLives(2);
       }
     }
   };

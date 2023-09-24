@@ -120,7 +120,7 @@ background-size: 150%;
   font-size: 24px;
 }
 
-.congrats-display.load-in{
+.congrat-display.load-in{
   opacity: 1;
   transform: translateY(0);
 }
@@ -403,6 +403,12 @@ color: rgb(255, 128, 75);
     justify-self: center;
     margin-left: 0.5rem ;
   }
-    
+  .congrat-display{
+    font-size: 12px;
+  }
+
+  .congrat-display h4{
+    font-size: 10px;
+  }
 
 }
