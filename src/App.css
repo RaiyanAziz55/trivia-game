@@ -16,7 +16,7 @@ background-size: 150%;
   opacity: 0;
   transform: translateY(-500px);
   transition: 1s;
-  width: 60vw;
+  width: 65vw;
   height: 80vh;
   background-color: var(--primary);
   border-radius: 30px;
