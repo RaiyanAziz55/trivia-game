@@ -1,48 +1,114 @@
 :root{
-    --background: rgb(255, 255, 255);
+    --primary: rgb(255, 255, 255);
+    --secondary: rgb(51, 48, 59);
+    --text: rgb(252, 177, 224);
+    --tertiary: linear-gradient(90deg, rgba(254,101,109,1) 35%, rgba(255,152,34,1) 100%);
 }
 
 .question-container{
     width: 900px;
     height: 700px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    background-color: var(--background);
+    background-color: var(--primary);
     border-radius: 5%;
+    margin: 3rem;
+    box-shadow: 5px 5px 10px 2px rgb(204, 186, 186);
 }
 
 .question{
-    width: 700px;
-    height: 200px;
+    position: relative;
+    box-shadow: 0px 0px 10px 2px rgb(50, 48, 59, 0.5);
+    padding-left: 1.5rem;
+    width: 85%;
+    height: 65%;
+    background: linear-gradient(90deg, rgba(115,65,247,0.7777704831932774) 35%, rgba(224,80,159,0.7077424719887955) 100%);
+    color: var(--primary);
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
 }
 
-.true-or-false{
+.container{
+    position: relative;
+    top: 10%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
     width: inherit;
-    height:250px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    gap: 3rem;
+    height: 80%;
 }
 
-.true-or-false ul li{
-    border: 0.25rem solid;
-    height: 7rem;
-    width: 75%;
-    list-style: none;
+.fail-display{
+    border-radius: 30px;
+    color: var(--text);
     display: flex;
-    justify-content: flex-start;
+    justify-self: center;
+    align-self: center;
+    justify-content: center;
     align-items: center;
-    padding: 1rem;
+    width: 80%;
+    height: 70%;
+    background-color: var(--secondary);
+    font-size: 36px;
 }
 
-.true-or-false ul{
-    height: 3rem;
-    width: inherit;
+
+
+.home-button{
+
+    background-color: var(--primary);
+    box-shadow: 5px 5px 10px 2px rgb(50, 48, 59, 0.5);
+    height: 50px;
+    width: 150px;
     display: flex;
-    justify-content: flex-start;
+    justify-self: center;
+    align-self: center;
+    justify-content: center;
     align-items: center;
-    gap: 2rem;
-    
+    transition: 500ms; 
+}
+
+.home-button:hover{
+    box-shadow: 5px 5px 10px 2px rgb(243, 123, 75);
+}
+
+.congrat-display{
+    border-radius: 30px;
+    color: var(--secondary);
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 70%;
+    background: var(--tertiary);
+    font-size: 36px;
+}
+
+.info{
+    position: absolute;
+    padding-left:1rem ;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+bottom: 65%;
+left: 102.5%;
+    width: 200px;
+    height: 300px;
+    background-color: var(--primary);
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px 2px rgb(150, 123, 123);
+    color: var(--secondary);
+}
+
+.info h3{
+    display: flex;
+    align-self: center;
 }

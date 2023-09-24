@@ -13,3 +13,43 @@ background-size: 100%;
   justify-content: center;
   align-items: center;
 }
+
+.choices{
+  gap: 1rem;
+  width: 90%;
+  height: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  justify-self: center;
+}
+
+.choices li{
+  flex: 1;
+  padding-left: 0.5rem;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px 2px rgb(50, 48, 59, 0.5);
+  height: 25%;
+  width: inherit;
+  display: flex;
+  justify-self: flex-start;
+  align-items: center;
+  transition: 500ms; 
+}
+
+.choices li:hover{
+  box-shadow: 5px 5px 10px 2px rgb(255, 111, 100);
+}
+
+.correct-answer{
+  background-color: rgb(129, 249, 139);
+  color: var(--primary);
+}
+
+.incorrect-answer{
+  background-color: rgb(249, 129, 129);
+  color: var(--primary);
+}
+
+

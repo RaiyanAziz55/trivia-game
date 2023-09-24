@@ -20,7 +20,7 @@ const QuizData: FC<QuizDataProps> = (props) => {
   const [currentQuestionSet, setCurrentQuestionSet] = useState<any>({});
   const [choices, setChoices] = useState<string[]>([]);
   const [doneQuiz, setDoneQuiz] = useState<boolean>(false);
-  const [lives, setLives] = useState<number>(3);
+  const [lives, setLives] = useState<number>(1);
   const [fail, setFail] = useState<boolean>(false);
 
   const setInitialValues = (fetchData: any) => {
@@ -44,7 +44,7 @@ const QuizData: FC<QuizDataProps> = (props) => {
     getData();
   }, [amount, category, type, difficulty]);
 
-  const updateChoices = (index: number) => {
+  const updateChoices = (index: number): void => {
     const incorrectAnswers = JSON.parse(JSON.stringify(data[index].incorrect_answers));
     setChoices([data[index].correct_answer.replaceAll('"', ''), ...incorrectAnswers]);
   }
@@ -83,21 +83,34 @@ const QuizData: FC<QuizDataProps> = (props) => {
   }
 
   return (
-    <div className='question-container'>
+
+    <div className='container'>
+      <div className='info'>
+        <h3>Info</h3>
+        <h4>Question {questionIndex} out of {data.length}</h4>
+        <h4>Lives: {lives} left</h4>
+        <h4>Category: {currentQuestionSet.category}</h4>
+      </div>
   {doneQuiz ? (
     <>
-      <h2>Congratulations! You won</h2>
-      <button onClick={handleHome}>Home</button>
+    <div className='congrat-display'>
+      <h2>Congratulations! You won </h2>
+      </div>
+      <button onClick={handleHome} className="home-button">Home</button>
     </>
   ) : fail ? (
     <>
+    <div className='fail-display'>
       <h2>you Failed</h2>
-      <button onClick={handleHome}>Home</button>
+      </div>
+      <button onClick={handleHome} className='home-button'>Home</button>
     </>
   ) : (
     <>
-      <h1 className='question'>{formatQuestion()}</h1>
-      <h3>{questionIndex + 1}/{data.length}</h3>
+    <div className='question'>
+      <h1 >{formatQuestion()}</h1>
+      </div>
+  
       <Multiple choices={choices} next={changeQuestion} correct={currentQuestionSet.correct_answer} lives={handleLives} />
     </>
   )}

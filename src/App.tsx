@@ -51,8 +51,10 @@ function App() {
 
   return (
     <div className='main'>
+    <div className='question-container'>
       { menu ? (
-        <div className='question-container'>
+        <div>
+          <h3>Choose your quiz!</h3>
           <form onSubmit={handleSubmit} ref={formRef}>
             <select onChange={handleCategoryChange} value={category || ''} required>
               <option value="">Select a category</option>
@@ -139,10 +141,12 @@ function App() {
 
             <button type="submit">Submit</button>
           </form>
-        </div>
+
+          </div>
       ) : ( 
         <QuizData amount={10} category={values[0]} type={values[1]} difficulty={values[2]} menu={setMenu} />
       )}
+      </div>
     </div>
   );
 }
