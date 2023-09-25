@@ -24,6 +24,10 @@ const QuizData: FC<QuizDataProps> = (props) => {
   const [fail, setFail] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
 
+
+  const [error, setError] = useState<string>();
+  const [isError, setIsError] = useState<boolean>(false);
+
   const setInitialValues = (fetchData: any) => { // Sets initial values by using setters and parsing them
     setData(fetchData);
     setCurrentQuestionSet(fetchData[0]);
@@ -38,6 +42,8 @@ const QuizData: FC<QuizDataProps> = (props) => {
         console.log(fetchedData);
         setInitialValues(fetchedData.results);
       } catch (error) {
+        setError((error as Error).toString());
+        setIsError(true);
         console.error('Error fetching data:', error);
       }
     };
@@ -83,43 +89,62 @@ const QuizData: FC<QuizDataProps> = (props) => {
     else{
       setLives(lives-1);
     }
-    
   }
 
   return (
 
-    <div className='container'>
-      <div className='info'>
-        <h4>Question {questionIndex} out of {data.length}</h4> {/* This will show miscellaneous information*/}
-        <h4>Lives: {lives} left</h4>
-        <h4>Category: {currentQuestionSet.category}</h4>
+<div className='container'>
+  {isError ? (
+    <div>
+      <h2>{error}</h2>
+      <button onClick={handleHome} className="home-button">
+        Home
+      </button>
       </div>
-  {doneQuiz ? ( // checks if the user is done the quiz
+    
+  ) : (
+    <div className='info'>
+      <h4>Question {questionIndex} out of {data.length}</h4>
+      <h4>Lives: {lives} left</h4>
+      <h4>Category: {currentQuestionSet.category}</h4>
+    </div>
+  )}
+  {doneQuiz ? (
     <>
-    <div className='congrat-display load-in'>
-      <h2>Congratulations! You beat the quiz! </h2>
-      <h4>Score: {Math.round((score/data.length)*100)} %</h4>
+      <div className='congrat-display load-in'>
+        <h2>Congratulations! You beat the quiz!</h2>
+        <h4>Score: {Math.round((score / data.length) * 100)} %</h4>
       </div>
-      <button onClick={handleHome} className="home-button">Home</button>
+      <button onClick={handleHome} className="home-button">
+        Home
+      </button>
     </>
-  ) : fail ? ( // if they are not done, did the user fail, if not, then move onto the next question
+  ) : fail ? (
     <>
-    <div className='fail-display load-in'>
-      <h2>Game Over! You lost all your lives!</h2>
+      <div className='fail-display load-in'>
+        <h2>Game Over! You lost all your lives!</h2>
       </div>
-      <button onClick={handleHome} className='home-button'>Home</button>
+      <button onClick={handleHome} className='home-button'>
+        Home
+      </button>
     </>
   ) : (
     <>
-    <div className='question'>
-      <h1 >{formatQuestion()}</h1>
+      <div className='question'>
+        <h1>{formatQuestion()}</h1>
       </div>
-    {/* Component to show the choices*/}
-      <Multiple choices={choices} next={changeQuestion} correct={currentQuestionSet.correct_answer} lives={handleLives} setScore={setScore} score={score}/>
+      {/* Component to show the choices */}
+      <Multiple
+        choices={choices}
+        next={changeQuestion}
+        correct={currentQuestionSet.correct_answer}
+        lives={handleLives}
+        setScore={setScore}
+        score={score}
+      />
     </>
   )}
 </div>
-
 
   );
   
